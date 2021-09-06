@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary" menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="Back()">
+        <ion-icon color="light" slot="start" name="return-up-back-outline" class="back"></ion-icon>
+        Voltar
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Documentos sem Assinatura</ion-title>
+  </ion-toolbar>
+</ion-header>
+  <ion-searchbar placeholder="Buscar..." [(ngModel)]="filterTerm" animated="true" autocomplete
+  ></ion-searchbar>
+<ion-content class="ion-padding transparent">
+  <ion-content class="transparent" >
+    <ion-list class="transparent" *ngFor="let ponto of pontos | filter:filterTerm">
+      <ion-item-sliding class="transparent" >
+        <ion-item class="transparent"> 
+          <ion-label class="transparent">
+          <h3 class="title transparent">{{ponto.documento}}</h3>
+          <p class="subtext transparent">{{ponto.Periodo}}</p>
+          <ion-button (click)="Ver(ponto.documento)" expand="block" fill="clear" shape="round">
+            Visualizar
+          </ion-button>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
