@@ -124,6 +124,14 @@ const routes: Routes = [
     path: 'pendencias/:id',
     loadChildren: () => import('./pendencias/pendencias.module').then( m => m.PendenciasPageModule)
   },
+  {
+    path: 'regulamento/:id',
+    loadChildren: () => import('./regulamento/regulamento.module').then( m => m.RegulamentoPageModule)
+  },
+  {
+    path: 'anexo1/:id',
+    loadChildren: () => import('./anexo1/anexo1.module').then( m => m.Anexo1PageModule)
+  },
 ];
 
 @NgModule({

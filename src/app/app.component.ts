@@ -184,6 +184,16 @@ public apppages = [
     this.router.navigate(['pendencias/' + Url]);
   }
 
+  GoenRegulamento(){
+    const datasource = this.router.url;
+    console.log(datasource);
+    const fn = datasource.split("/");
+    let Url = fn[2];
+    Url = decodeURI(Url);
+    Url = decodeURIComponent(Url);
+    this.router.navigate(['regulamento/' + Url]);
+  }
+
   GoenNav(){
     const datasource = this.router.url;
     console.log(datasource);
