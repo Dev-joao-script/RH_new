@@ -132,6 +132,14 @@ const routes: Routes = [
     path: 'anexo1/:id',
     loadChildren: () => import('./anexo1/anexo1.module').then( m => m.Anexo1PageModule)
   },
+  {
+    path: 'anexo2/:id',
+    loadChildren: () => import('./anexo2/anexo2.module').then( m => m.Anexo2PageModule)
+  },
+  {
+    path: 'anexo3/:id',
+    loadChildren: () => import('./anexo3/anexo3.module').then( m => m.Anexo3PageModule)
+  },
 ];
 
 @NgModule({
