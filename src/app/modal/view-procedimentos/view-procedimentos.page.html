@@ -1,0 +1,24 @@
+<ion-content>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" color="danger">
+        Sair
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="tertiary">Procedimento de: {{Procedimento.Data.substring(8,10) + '/' + Procedimento.Data.substring(5,7) + '/' + Procedimento.Data.substring(0,4)}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-title color="tertiary" class="ion-margin ion-padding" >{{Procedimento.Titulo}}</ion-title>
+    <ion-text color="primary" class="ion-padding">
+      <p class="ion-padding">{{Procedimento.Procedimento}}</p>
+    </ion-text>
+  </ion-card>
+<p>
+  
+</p>
+  
+</ion-content>
+</ion-content>

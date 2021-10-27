@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" color="danger">
+        Sair
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">{{typeof ? 'Advertencia' : 'Suspenção'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary"><strong>Advertencia</strong> </ion-label>
+      <ion-toggle color="primary" [(ngModel)]="typeof" name="typeof" ></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label position="floating" color="primary">Funcionario:</ion-label>
+    <ion-select multiple="false" interface="action-sheet" name="Funcionario" (ionChange)="teste($event);">
+      <ion-select-option *ngFor="let funcionario of funcionarios"
+        value="{{funcionario.Codigo + '/' + funcionario.Funcionarios }}">{{funcionario.Funcionarios}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item hidden>
+    <ion-label position="floating" color="primary">Codigo:</ion-label>
+    <ion-input type="text" name="Codigo" [(ngModel)]="valueA" value="{{valueA}}"></ion-input>
+  </ion-item>
+  <ion-item hidden>
+    <ion-label position="floating" color="primary">Nome:</ion-label>
+    <ion-input type="text" name="Funcionario" [(ngModel)]="valueB" value="{{valueB}}"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary">Data</ion-label>
+    <ion-input type="date" name="Data" [(ngModel)]="Data" value="{{Data}}"></ion-input>
+  </ion-item>
+
+  <ion-item [ngClass]="typeof ? 'hide' : 'show' ">
+    <ion-label position="floating" color="primary">Quantidade de dias</ion-label>
+    <ion-input type="number" name="Dias" [(ngModel)]="Dias" value="{{Dias}}" min="5" max="30"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating" color="primary">Alinea</ion-label>
+    <ion-input type="text" class="Uper" name="Alinea" [(ngModel)]="Alinea" value="{{Alinea}}"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" color="primary">Motivo</ion-label>
+      <ion-textarea  name="Motivo" [(ngModel)]="Motivo" value="{{Motivo}}"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-button (click)="uploadFile()" expand="block" fill="clear" shape="round">
+      <ion-icon slot="start" name="send-outline"></ion-icon>
+      Enviar
+    </ion-button>
+  </ion-item>
+</ion-content>

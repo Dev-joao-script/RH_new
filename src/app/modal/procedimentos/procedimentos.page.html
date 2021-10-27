@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="Back()">
+        <ion-icon color="light" slot="start" name="return-up-back-outline" class="back"></ion-icon>
+        Voltar
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button color="tertiary" (click)="add()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Adicionar Novo
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Procedimentos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-searchbar placeholder="Buscar..." [(ngModel)]="filterTerm" animated="true" autocomplete></ion-searchbar>
+    <ion-list *ngFor="let procedimento of Procedimentos | filter:filterTerm" class="transparent">
+      <ion-item-sliding class="transparent">
+        <ion-item class="transparent"> 
+          <ion-label class="transparent">
+          <h3 class="title transparent">{{procedimento.Titulo}}</h3>
+          <p class="subtext transparent">{{'Data: ' + procedimento.Data.substring(8,10) + '/' + procedimento.Data.substring(5,7) + '/' + procedimento.Data.substring(0,4) }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="success" (click)="View(procedimento)">
+            <ion-icon name="eye-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="secondary" (click)="edit(procedimento)">Editar</ion-item-option>
+          <ion-item-option color="danger" (click)="removeP(procedimento.seq)">
+            <ion-icon name="trash"></ion-icon>
+         </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>

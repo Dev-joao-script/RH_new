@@ -1,0 +1,60 @@
+ion-content {
+    --background: #fff;
+    --background: url(../../../assets/fundo.jpg) 0 0/100% 100% no-repeat;
+    --color: #3880ff;
+    --keyboard-offset: 0px;
+    --offset-bottom: 0px;
+    --offset-top: 0px;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+}
+
+ion-card {
+    --background: #ffffff91;
+    --color: #3880ff;
+}
+
+ion-item {
+    --background: #3881ff00;
+    --background-activated: #3881ff00;
+    --background-activated-opacity: 1;
+    --background-focused: #3881ff00;
+    --background-focused-opacity: 1;
+    --background-hover: #3881ff00;
+    --background-hover-opacity: 1;
+    --border-color: #3881ff00; 
+}
+
+.Img{
+    border-radius: 5%;
+    border: solid blue 1px;
+    width: 50px;
+    height: 50px;
+}
+
+ion-img{
+    float: left;
+}
+
+ion-item{
+    --background: #3881ff00;
+}
+
+ion-list{
+    background: #3881ff00;
+    background-image: #3881ff00;
+}
+
+.show{
+    display: inline !important;
+}
+
+.hide{
+    display: none !important;
+}
+
+.DspNone{
+    display: none;
+}

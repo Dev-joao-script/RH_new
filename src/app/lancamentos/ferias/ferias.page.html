@@ -1,53 +1,40 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button (click)="closeModal()" color="danger">
+      <ion-button color="tertiary" (click)="closeModal()">
+        <ion-icon color="light" slot="start" name="return-up-back-outline" class="back"></ion-icon>
         Sair
       </ion-button>
     </ion-buttons>
-    <ion-title color="primary">Pagamentos</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="tertiary" (click)="GoenCC()">
+        <ion-icon slot="start" name="add-circle"></ion-icon>Adicionar
+        </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Ferias avisadas</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-item>
-    <ion-label position="floating" color="primary">Funcionario:</ion-label>
-    <ion-select multiple="false" interface="action-sheet" name="Nome" (ionChange)="teste($event);">
-      <ion-select-option *ngFor="let funcionario of funcionarios" value="{{funcionario.Codigo + '/' + funcionario.Funcionarios }}">{{funcionario.Funcionarios}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item hidden>
-    <ion-label position="floating" color="primary">Codigo:</ion-label>
-    <ion-input type="text" name="Cod"  [(ngModel)]="valueA"  value="{{valueA}}"></ion-input>
-  </ion-item>
-  <ion-item hidden>
-    <ion-label position="floating" color="primary">Nome:</ion-label>
-    <ion-input type="text"  name="Nome" [(ngModel)]="valueB" value="{{valueB}}"></ion-input>
-  </ion-item>
-<ion-item>
-  <ion-label color="primary">Tipo</ion-label>
-  <ion-select [(ngModel)]="Tipo" name="Tipo" value="Tipo" multiple="false" placeholder="Selecione um tipo">
-    <ion-select-option  name="Tipo" value="Pagamento">Pagamento</ion-select-option>
-    <ion-select-option name="Tipo" value="Adiantamento">Adiantamento</ion-select-option>
-    <ion-select-option name="Tipo" value="DecimoTerceiro">Decimo Terceiro</ion-select-option>
-  </ion-select>
-</ion-item>
-
-<ion-item>
-  <ion-label position="floating" color="primary">Periodo</ion-label>
-  <ion-input type="text"  name="Nome" [(ngModel)]="Periodo" value="{{Periodo}}" [brmasker]="{mask:'00/0000', len:7}"></ion-input>
-</ion-item>
-
-<ion-item>
-<ion-icon slot="start" name="add"></ion-icon>
-<ion-button expand="block" fill="clear" shape="round">
-<input [formControl]="file" (change)="fileChange($event)" type="file" class="file_customizada" accept="Application/pdf">
-</ion-button>
-</ion-item>
-  <ion-item>
-    <ion-button (click)="uploadFile()" expand="block" fill="clear" shape="round">
-      <ion-icon slot="start" name="send-outline"></ion-icon>
-      Enviar
-    </ion-button>
-  </ion-item>
-</ion-content>
+  <ion-searchbar placeholder="Buscar..." [(ngModel)]="filterTerm" animated="true" autocomplete
+  ></ion-searchbar>
+<ion-content class="ion-padding transparent">
+  <ion-content class="transparent" >
+    <ion-list class="transparent" *ngFor="let ferias of Ferias_prog | filter:filterTerm">
+      <ion-item-sliding class="transparent" >
+        <ion-item class="transparent"> 
+          <ion-label class="transparent">
+          <h3 class="title transparent">{{ferias.Funcionario}}</h3>
+          <p class="subtext transparent ion-text-uppercase tertiary">{{ferias.Tipo_Ferias}}, {{ferias.Dias}} DIAS</p>
+          <p class="subtext transparent"> Data de inicio das Férias: <strong class="tertiary">{{ferias.Inicio_perioro}}</strong></p>
+          <p class="subtext transparent"> Data de Termino das Férias: <strong class="tertiary">{{ferias.Termino_periodo}}</strong></p>
+          <p class="subtext transparent"> Data de Retorno ao Trabalho: <strong class="tertiary">{{ferias.Retorno}}</strong></p>
+          <ion-button (click)="Ver(ferias.Aviso_de_Ferias)" expand="block" fill="clear" shape="round">
+            Visualizar Aviso de férias
+          </ion-button> 
+          <label class="Gren" for="Fill{{ferias.seq}}">+ Adicionar Recibo!</label>
+          <input [formControl]="file" id="Fill{{ferias.seq}}" (change)="fileChange($event,ferias.seq)" type="file" class="file_customizada"
+          accept="Application/pdf" hidden>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>

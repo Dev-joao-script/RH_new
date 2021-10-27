@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" color="danger">
+        Sair
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">{{isUpdate ? 'Editar' : 'Novo'}} Procedimentos: Padrão.</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Data:</ion-label>
+      <ion-input type="date" placeholder=""  [(ngModel)]="dataSbt.Data"  name="Data"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Titulo:</ion-label>
+      <ion-input type="text" placeholder=""  [(ngModel)]="dataSbt.Titulo"  name="Titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Procedimento:</ion-label>
+      <ion-textarea rows="15" cols="20" placeholder="detalhe o procedimento..." [(ngModel)]="dataSbt.Procedimento"  name="Procedimento"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="primary" >seq:</ion-label>
+      <ion-input type="text" placeholder=""  [(ngModel)]="dataSbt.seq" name="seq"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" fill="outline" color="primary" type="submit">
+      {{isUpdate ? 'Editar' : 'Cadastrar'}}
+    </ion-button>
+  </form>
+
+</ion-content>

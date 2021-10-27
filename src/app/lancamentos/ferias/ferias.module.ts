@@ -8,6 +8,7 @@ import { FeriasPageRoutingModule } from './ferias-routing.module';
 
 import { FeriasPage } from './ferias.page';
 import { RouterModule } from '@angular/router';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule,
     RouterModule.forChild([{
       path: '',
       component: FeriasPage

@@ -140,6 +140,62 @@ const routes: Routes = [
     path: 'anexo3/:id',
     loadChildren: () => import('./anexo3/anexo3.module').then( m => m.Anexo3PageModule)
   },
+  {
+    path: 'ferias-new',
+    loadChildren: () => import('./ferias-new/ferias-new.module').then( m => m.FeriasNewPageModule)
+  },
+  {
+    path: 'contrato',
+    loadChildren: () => import('./lancamentos/contrato/contrato.module').then( m => m.ContratoPageModule)
+  },
+  {
+    path: 'panel-contratos',
+    loadChildren: () => import('./modal/panel-contratos/panel-contratos.module').then( m => m.PanelContratosPageModule)
+  },
+  {
+    path: 'panel-atestados',
+    loadChildren: () => import('./modal/panel-atestados/panel-atestados.module').then( m => m.PanelAtestadosPageModule)
+  },
+  {
+    path: 'atestados',
+    loadChildren: () => import('./lancamentos/atestados/atestados.module').then( m => m.AtestadosPageModule)
+  },
+  {
+    path: 'panel-advertencias',
+    loadChildren: () => import('./modal/panel-advertencias/panel-advertencias.module').then( m => m.PanelAdvertenciasPageModule)
+  },
+  {
+    path: 'advertencia',
+    loadChildren: () => import('./lancamentos/advertencia/advertencia.module').then( m => m.AdvertenciaPageModule)
+  },
+  {
+    path: 'registro-advertencia',
+    loadChildren: () => import('./lancamentos/registro-advertencia/registro-advertencia.module').then( m => m.RegistroAdvertenciaPageModule)
+  },
+  {
+    path: 'procedimentos/:id',
+    loadChildren: () => import('./modal/procedimentos/procedimentos.module').then( m => m.ProcedimentosPageModule)
+  },
+  {
+    path: 'procedimento-lc',
+    loadChildren: () => import('./modal/procedimento-lc/procedimento-lc.module').then( m => m.ProcedimentoLcPageModule)
+  },
+  {
+    path: 'view-procedimentos',
+    loadChildren: () => import('./modal/view-procedimentos/view-procedimentos.module').then( m => m.ViewProcedimentosPageModule)
+  },
+  {
+    path: 'gestao/:id',
+    loadChildren: () => import('./gestao/gestao.module').then( m => m.GestaoPageModule)
+  },
+  {
+    path: 'funcionarios-he',
+    loadChildren: () => import('./modal/funcionarios-he/funcionarios-he.module').then( m => m.FuncionariosHEPageModule)
+  },
+  {
+    path: 'funcionario-bh',
+    loadChildren: () => import('./modal/funcionario-bh/funcionario-bh.module').then( m => m.FuncionarioBhPageModule)
+  },
 ];
 
 @NgModule({

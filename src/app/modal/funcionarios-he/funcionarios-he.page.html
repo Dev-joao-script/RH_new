@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="closeModal()">
+        <ion-icon color="light" slot="start" name="return-up-back-outline" class="back"></ion-icon>
+        Sair
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Horas Extras</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-searchbar placeholder="Buscar..." [(ngModel)]="filterTerm" animated="true" autocomplete
+></ion-searchbar>
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-item>
+    <ion-label color="primary" position="floating" >Periodo</ion-label>
+    <ion-input placeholder="" name="Periodo" type="text" [ngModel]="Periodo" value="{{Periodo}}" [brmasker]="{mask:'00/0000', len:7}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button type="submit" expand="block" shape="round" color="tertiary">
+      <ion-icon slot="start" name="search"></ion-icon> Buscar dados
+    </ion-button>
+  </ion-item>
+    <ion-list >
+  <ion-card>
+  </ion-card>
+  <ion-card  *ngFor="let Data of Datachart | filter:filterTerm">
+    <ion-card-header>
+    <ion-img class="ion-margin Img" src="http://www.cepelma.com.br/IMAGENS/{{Data.scan}}"></ion-img>
+      <ion-card-subtitle color="primaary">{{Data.Funcionarios}}</ion-card-subtitle>
+      <ion-card-title color="tertiary">{{Data.Horas}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+    </ion-card-content>
+  </ion-card>
+</ion-list>
+</form>
+</ion-content>

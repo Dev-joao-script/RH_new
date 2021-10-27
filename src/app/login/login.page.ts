@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -26,6 +25,7 @@ export class LoginPage implements OnInit, OnDestroy{
   returndata: any;
   datasource: any;
   constructor(
+
     public navCtrl: NavController,
     public http: Http,
     private router: Router,
@@ -38,8 +38,11 @@ export class LoginPage implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
+
   }
+
   ngOnInit(): void {
+    
   }
 
   ionViewDidLeave(): void{
@@ -80,7 +83,6 @@ export class LoginPage implements OnInit, OnDestroy{
           this.cpf_date = this.logindata.cpf;
           FeedPage.User = data[0].mem_name;
           this.router.navigate(['feed/' + data[0].mem_name]);
-
           this.datasource = {
           cpfSource: this.logindata.cpf,
           };

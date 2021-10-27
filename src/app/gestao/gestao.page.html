@@ -1,0 +1,230 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="Back()">
+        <ion-icon color="light" slot="start" name="return-up-back-outline" class="back"></ion-icon>
+        Sair
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Gestão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <ion-buttons slot="start">
+        <ion-button (click)="OpenHoraExtrasF()">
+          <ion-icon slot="start" name="time"></ion-icon>
+          Horas extras
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="start">
+        <ion-button (click)="OpenBancoDeHoras()">
+          <ion-icon slot="start" name="time"></ion-icon>
+          Banco de Horas
+        </ion-button>
+      </ion-buttons>
+
+<ion-card>
+  <ion-card-header >
+    <ion-card-subtitle color="tertiary">Pendencias & Tratativas</ion-card-subtitle>
+    <ion-card-title color="primary">Pendente x Concluido</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+  <apx-chart *ngFor="let data of Datachart"
+  [chart]="Options.chart"
+  [series]="[data.Radial]" 
+  [plotOptions]="Options.plotOptions">
+  </apx-chart>
+  </ion-card-content>
+
+</ion-card>
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle color="tertiary">Incidencias No Ponto</ion-card-subtitle>
+    <ion-card-title color="primary">Lançamentos do Periodo</ion-card-title>
+  </ion-card-header>
+  
+<ion-item>
+  <ion-label color="primary" position="floating"> Data de Inicio + 30 Dias</ion-label>
+  <ion-input placeholder="" name="Now" type="date" [ngModel]="Now" value="{{Now}}"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-button type="submit" expand="block" shape="round" color="tertiary">
+    <ion-icon slot="start" name="search"></ion-icon> Buscar dados
+  </ion-button>
+</ion-item>
+
+
+  <ion-card-content>
+    <apx-chart *ngFor="let data of Datachart" 
+    [chart]="BarOptions.chart"
+    [series]="
+    [{
+      name: 'Advertencia',
+      data: [data.Advertencia]
+    },
+    {
+      name: 'Atrasos',
+      data: [data.Atrasos]
+    },
+    {
+      name: 'Faltas',
+      data: [data.Faltas]
+    },
+    {
+      name: 'Sem Batidas',
+      data: [data.Sem_Batidas]
+    },]
+    "
+    [labels]="BarOptions.labels"
+    [grid]="BarOptions.grid"
+    [fill]="BarOptions.fill"
+    [xaxis]="BarOptions.xaxis"
+    [yaxis]="BarOptions.yaxis"
+    [dataLabels]="BarOptions.dataLabels">
+    </apx-chart>
+  </ion-card-content>
+</ion-card>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle color="tertiary">Incidencias No Ponto</ion-card-subtitle>
+    <ion-card-title color="primary">Lançamentos de Horas Extras (Batidas)</ion-card-title>
+  </ion-card-header>
+  <ion-item>
+    <ion-label color="primary" position="floating">Ano 1</ion-label>
+    <ion-input placeholder="" name="anoAtual" type="Number" [ngModel]="anoAtual" value="{{anoAtual}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" position="floating" >Ano 2</ion-label>
+    <ion-input placeholder="" name="anoAnterior" type="Number" [ngModel]="anoAnterior" value="{{anoAnterior}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button type="submit" expand="block" shape="round" color="tertiary">
+      <ion-icon slot="start" name="search"></ion-icon> Buscar dados
+    </ion-button>
+  </ion-item>
+  <ion-card-content>
+    <apx-chart *ngFor="let data of Datachart"
+    [chart]="AreaOptions.chart"
+    [series]="
+    [{ 
+      name: 'Horas Hextras ' + anoAnterior,
+      data: [
+      data.mjan,
+      data.mfev,
+      data.mmar,
+      data.mabr,
+      data.mmai,
+      data.mjun,
+      data.mjul,
+      data.mago,
+      data.mset,
+      data.mout,
+      data.mnov,
+      data.mdez
+            ]
+    },
+    {
+      name: 'Horas Hextras ' + anoAtual,
+      data: 
+      [
+      data.njan,
+      data.nfev,
+      data.nmar,
+      data.nabr,
+      data.nmai,
+      data.njun,
+      data.njul,
+      data.nago,
+      data.nset,
+      data.nout,
+      data.nnov,
+      data.ndez
+            ]
+    },]
+    "
+    [labels]="AreaOptions.labels"
+    [grid]="AreaOptions.grid"
+    [fill]="AreaOptions.fill"
+    [xaxis]="AreaOptions.xaxis"
+    [yaxis]="AreaOptions.yaxis"
+    [dataLabels]="AreaOptions.dataLabels">
+    </apx-chart>
+  </ion-card-content>
+</ion-card>
+
+
+
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle color="tertiary">Horas</ion-card-subtitle>
+    <ion-card-title color="primary">Totais de Horas Extras</ion-card-title>
+  </ion-card-header>
+  <ion-item>
+    <ion-label color="primary" position="floating">Ano 1</ion-label>
+    <ion-input placeholder="" name="anoTV" type="Number" [ngModel]="anoTV" value="{{anoTV}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" position="floating" >Ano 2</ion-label>
+    <ion-input placeholder="" name="anoUV" type="Number" [ngModel]="anoUV" value="{{anoUV}}"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button type="submit" expand="block" shape="round" color="tertiary">
+      <ion-icon slot="start" name="search"></ion-icon> Buscar dados
+    </ion-button>
+  </ion-item>
+  <ion-card-content>
+    <apx-chart *ngFor="let data of Datachart"
+    [chart]="AreaExtra.chart"
+    [series]="
+    [{ 
+      name: 'Horas Hextras ' + anoUV,
+      data: [
+      data.ujan,
+      data.ufev,
+      data.umar,
+      data.uabr,
+      data.umai,
+      data.ujun,
+      data.ujul,
+      data.uago,
+      data.uset,
+      data.uout,
+      data.unov,
+      data.udez
+            ]
+    },
+    {
+      name: 'Horas Hextras ' + anoTV,
+      data: 
+      [
+      data.Tjan,
+      data.Tfev,
+      data.Tmar,
+      data.Tabr,
+      data.Tmai,
+      data.Tjun,
+      data.Tjul,
+      data.Tago,
+      data.Tset,
+      data.Tout,
+      data.Tnov,
+      data.Tdez
+            ]
+    },]
+    "
+    [labels]="AreaExtra.labels"
+    [grid]="AreaExtra.grid"
+    [fill]="AreaExtra.fill"
+    [xaxis]="AreaExtra.xaxis"
+    [yaxis]="AreaExtra.yaxis"
+    [dataLabels]="AreaExtra.dataLabels">
+    </apx-chart>
+  </ion-card-content>
+</ion-card>
+</form>
+</ion-content>

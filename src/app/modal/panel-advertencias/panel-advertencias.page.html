@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="tertiary" (click)="closeModal()">
+        <ion-icon color="light" slot="start" name="return-up-back-outline" class="back"></ion-icon>
+        Sair
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button color="tertiary" (click)="GoenCC()">
+        <ion-icon slot="start" name="add-circle"></ion-icon>Adicionar
+        </ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Advertencias & Suspenções</ion-title>
+  </ion-toolbar>
+</ion-header>
+  <ion-searchbar placeholder="Buscar..." [(ngModel)]="filterTerm" animated="true" autocomplete
+  ></ion-searchbar>
+
+<ion-list>
+  <ion-item>
+    <ion-label color="primary"><strong>Apenas Pendentes</strong> </ion-label>
+    <ion-toggle color="primary" [(ngModel)]="typeof" (ionChange)="updateItem()"></ion-toggle>
+  </ion-item> 
+</ion-list>
+
+<ion-content class="ion-padding transparent">
+  <ion-content class="transparent" >
+    <ion-list class="transparent" *ngFor="let documento of Documentos | filter:filterTerm">
+      <ion-item-sliding class="transparent" >
+        <ion-item class="transparent" > 
+          <ion-label class="transparent" >
+          <h3 class="title transparent">{{documento.Funcionario}}</h3>
+          <p>Data: {{documento.Data}}</p>
+          <p>Tipo: {{documento.Tipo}}</p>
+          <p *ngIf="documento.Dias != '' && documento.Dias != null && documento.Dias != '0'">Dias: {{documento.Dias}}</p>
+            <ion-button *ngIf="documento.Scan != ''" (click)="Ver(documento.Scan)" expand="block" fill="clear" shape="round">
+            Visualizar Advertencia
+          </ion-button> 
+          <p *ngIf="documento.Scan == ''" class="red">Aplicação Pendente</p>
+          <ion-button slot="start" *ngIf="documento.Scan == ''" 
+          (click)="Imprimir(documento.Codigo,documento.Motivo,documento.Tipo,documento.Alinea,documento.Dias,documento.Funcionario)" 
+          expand="block" fill="clear" shape="round">
+            <ion-icon slot="start" name="print"></ion-icon> Imprimir
+          </ion-button>
+          <ion-button slot="start" *ngIf="documento.Scan == ''" 
+          (click)="GoenREg(documento.Funcionario,documento.seq)" 
+          expand="block" fill="clear" shape="round">
+            <ion-icon slot="start" name="attach"></ion-icon> Anexar
+          </ion-button>
+
+
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
+

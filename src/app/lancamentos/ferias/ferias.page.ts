@@ -1,72 +1,110 @@
-import { NavController, Platform, ToastController, ModalController } from '@ionic/angular';
-import { Http } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { ViewChild, ElementRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Location } from '@angular/common'
-import { Funcionarios, FuncionariosService } from 'src/app/service/funcionarios.service';
+  import { FeriasNewPage } from './../../ferias-new/ferias-new.page';
+  import { Avisos_ferias, FeriasCallService } from './../../ferias-call.service';
+  import { HttpClient } from '@angular/common/http';
+  import { Component, OnInit } from '@angular/core';
+  import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+  import { Http } from '@angular/http';
+  import { Router } from '@angular/router';
+  import { Location } from '@angular/common'
+  import { FormControl } from '@angular/forms';
+  
+
+  @Component({
+    selector: 'app-ferias',
+    templateUrl: './ferias.page.html',
+    styleUrls: ['./ferias.page.scss'],
+  })
+  export class FeriasPage implements OnInit {
+  
+    Ferias_prog: Avisos_ferias[]
+    loading: any;
+    isLoading = false;
+    filterTerm: string;
+    ip: string;
+    url = 'https://www.cepelma.com.br/Update_Ferias.php';
+  
+    constructor(
+      private service: FeriasCallService,
+      private alertCtrl: AlertController,
+      private modalCtrl: ModalController,
+      public router: Router,
+      public http: Http,
+      private location: Location,
+      private https: HttpClient,
+      private loadingController: LoadingController,
+      public toastController: ToastController,
+      
+    ) { }
+  
+   async ngOnInit() {
+      await this.loadingPresent();
+      this.service.getall().subscribe(response => {
+        this.Ferias_prog = response;
+      })
+  
+      this.loading.dismiss();
+    }
+    
+    closeModal(){
+      this.modalCtrl.dismiss(null, 'closed');
+    }
+    async loadingPresent() {
+      this.isLoading = true;
+      this.loading = await this.loadingController.create({
+        message: 'Aguarde um instante...',
+        spinner: 'circles',
+        duration: 2000,
+      });
+      return this.loading.present();
+    }
+  
+    Back(): void {
+      this.location.back()
+    }
+  
+  
+    Ver(LET){
+      window.open("http://www.cepelma.com.br/DOCUMENTOS/" + LET, "_Blank", "false" )
+    }
+
+    Addferias(){
+      console.log('adicionado');
+    }
+
+    GoenCC(){
+      console.log()
+        this.alertCtrl.create({
+          header: 'Aviso de Férias',
+          message: 'Lançar aviso de Férias?',
+          buttons: [{
+            text: 'Sim',
+            handler: () => {
+              this.modalCtrl.create({
+                component: FeriasNewPage,
+                // componentProps: { }
+              }).then(modal => {
+                modal.present();
+                return modal.onDidDismiss();
+              }).then(({data, role}) => {
+                if (role === 'created') {
+                  console.log(data)
+                }
+              });
+    
+             }
+          },
+          { text: 'Não' }
+        ]
+        })
+        .then(alertEl => alertEl.present())
+    }
 
 
-
-@Component({
-  selector: 'app-ferias',
-  templateUrl: './ferias.page.html',
-  styleUrls: ['./ferias.page.scss'],
-})
-export class FeriasPage implements OnInit {
-  uploadForm: FormGroup;
-  pdfObj = null;
-  justtext: any;
-  sourseresolve: any;
-  url = 'http://www.cepelma.com.br/Api_Pagamentos.php';
-  SERVER_URL = "https://www.cepelma.com.br/Api_Pagamentos.php";
-  basepath = "http://localhost";
-  @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef; files = [];
-  Posts: any;
-  pages: any;
-  ip: string;
-  funcionarios: Funcionarios[];
-  selected: any;
-  valueB: string;
-  valueA: string;
-  Name: any;
-  Periodo: string;
-  Tipo: string;
-
-  constructor(
-    private location: Location,
-    public router: Router,
-    private formBuilder: FormBuilder,
-    private https: HttpClient,
-    public http: Http,
-    public navCtrl: NavController,
-    public platform: Platform,
-    private FuncionariosService: FuncionariosService,
-    private modalCtrl: ModalController,
-    public toastController: ToastController,
-  ) { }
-
-  ngOnInit() {
-    this.valueA = ""
-    this.valueB = ""
-    this.Periodo = ""
-    this.Tipo = ""
-    this.FuncionariosService.getAll().subscribe(response => {
-      this.funcionarios = response;
-    })
-
-    this.uploadForm = this.formBuilder.group({
-      File: ['']
-    });
-  }
-
+    
   file = new FormControl('');
   file_data: any = '';
-  fileChange(event) {
-
+  fileChange(event,seq) {
+  console.log(seq)
     const fileList: FileList = event.target.files;
     //check whether file is selected or not
     if (fileList.length > 0) {
@@ -85,38 +123,24 @@ export class FeriasPage implements OnInit {
         formData.append('info', JSON.stringify(info))
         this.file_data = formData
 
+        this.ip = this.url + "?Cod=" + seq;
+          this.https.post(this.ip, this.file_data)
+          .subscribe(() => {
+            this.modalCtrl.dismiss(null, 'closed');
+            this.presentToast("Lançamento Concluido");
+            this.modalCtrl.dismiss(null, 'created');
+
+          }, () => {
+            this.modalCtrl.dismiss(null, 'closed');
+            this.presentToast("Lançamento Concluido");
+            this.modalCtrl.dismiss(null, 'created');
+
+        });
+
       } else {
-        //this.snackBar.open('File size exceeds 4 MB. Please choose less than 4 MB','',{duration: 2000});
+        this.presentToast('O arquivo excede a 4 MB. selecione um arquivo ate 4 MB');
       }
     }
-  }
-
-  uploadFile() {
-    this.ip = this.url + "?id=" + this.valueA + "&Nome=" + this.valueB + "&Tipo=" + this.Tipo + "&Periodo=" + this.Periodo;
-    if (this.valueA === "" || this.valueB === "" || this.Tipo === "" || this.Periodo === "" || this.file_data === "") {
-      this.presentToast("Preencha todos os campos!");
-      console.log(this.Tipo);
-    } else {
-      // this.createPdf();
-      this.https.post(this.ip, this.file_data)
-      .subscribe(() => {
-        this.modalCtrl.dismiss(null, 'closed');
-        this.presentToast("Lançamento Concluido");
-      }, () => {
-        this.modalCtrl.dismiss(null, 'closed');
-        this.presentToast("Lançamento Concluido");
-    });
-    }
-  }
-  teste(racas: any) {
-    this.Name = racas.detail.value;
-    console.log(racas);
-    const fn = this.Name.split("/");
-    this.valueA = fn[0];
-    this.valueB = fn[1];
-    console.log(this.valueA);
-    console.log(this.valueB);
-    this.selected = fn[1];
   }
 
   async presentToast(messageSignal: string) {
@@ -127,10 +151,24 @@ export class FeriasPage implements OnInit {
     toast.present();
   }
 
-  closeModal() {
-    this.modalCtrl.dismiss(null, 'closed');
+  async ionViewDidEnter(){
+    await this.loadingPresent();
+    this.service.getall().subscribe(response => {
+      this.Ferias_prog = response;
+    })
+    this.loading.dismiss();  
   }
 
-}
+  async ionViewWillEnter(){
+    await this.loadingPresent();
+    this.service.getall().subscribe(response => {
+      this.Ferias_prog = response;
+    })
+    this.loading.dismiss();  
+  }
+
+  }
+  
 
 
+  

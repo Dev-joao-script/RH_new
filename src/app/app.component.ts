@@ -154,6 +154,16 @@ public apppages = [
     this.router.navigate(['justificativas/' + Url]);
   }
 
+  GoenProced(){
+    const datasource = this.router.url;
+    console.log(datasource);
+    const fn = datasource.split("/");
+    let Url = fn[2];
+    Url = decodeURI(Url);
+    Url = decodeURIComponent(Url);
+    this.router.navigate(['procedimentos/' + Url]);
+  }
+
   GoenTratamentos(){
     const datasource = this.router.url;
     console.log(datasource);
@@ -213,6 +223,6 @@ public apppages = [
     let Url = fn[2];
     Url = decodeURI(Url);
     Url = decodeURIComponent(Url);
-    this.router.navigate(['seguranca/' + Url]);
+    this.router.navigate(['gestao/' + Url]);
   }
 }
